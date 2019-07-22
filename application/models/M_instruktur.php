@@ -2,6 +2,51 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_instruktur extends CI_Model {
+	/*public $ins_id;
+    public $name;
+    public $tempatlahir;
+    public $tanggallahir;
+    public $alamat;
+    public $kontak;
+    public $image = "default.jpg";
+    public $instansi;
+    public $spesialisasi;
+    public $deskripsi;
+
+
+    public function rules()
+    {
+        return [
+            ['field' => 'nama',
+            'label' => 'Nama',
+            'rules' => 'required'],
+
+            ['field' => 'tempat_lahir',
+            'label' => 'Tempat Lahir',
+            'rules' => 'required'],
+
+            ['field' => 'tgl_lahir',
+            'label' => 'Tanggal Lahir',
+            'rules' => 'required'],
+
+            ['field' => 'alamat',
+            'label' => 'Alamat',
+            'rules' => 'required']
+
+            ['field' => 'no_kontak',
+            'label' => 'No. Kontak',
+            'rules' => 'numeric'],
+            
+            ['field' => 'asal_instansi',
+            'label' => 'Asal Instansi',
+            'rules' => 'required'],
+
+            ['field' => 'spesialisasi',
+            'label' => 'Spesialisasi',
+            'rules' => 'required']
+        ];
+    }
+*/
 
 	public function getInstrukturData()
 	{
@@ -23,6 +68,7 @@ class M_instruktur extends CI_Model {
 
 	public function addInstruktur($data)
 	{
+
 		$this->db->insert('tb_instruktur',$data);
 	}	
 

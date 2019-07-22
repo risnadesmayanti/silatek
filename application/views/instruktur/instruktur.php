@@ -95,7 +95,9 @@
                   <td style="text-align: center;">
                     <!-- <a href="#" id="<?php //echo $key->id; ?>" class="btn btn-primary btn-mini view_data" title="Lihat Detail" data-toggle="modal" data-target="#myModal"><i class="icon icon-eye-open"></i></a> --> 
                     
-                    <a href="<?php echo base_url(). 'index.php/Instruktur/updateIns/'. $key->id?>" class="btn btn-success btn-mini " title="Lihat Detail"><i class="icon icon-eye-open"></i></a> 
+                    <a href="<?php echo base_url(). 'index.php/Instruktur/updateIns/'. $key->id?>" class="btn btn-success btn-mini" title="Lihat Detail"><i class="icon icon-eye-open"></i></a> 
+                    <!-- <button type="button" class="btn btn-success btn-mini" data-toggle="modal" data-target="#modal-tambah" title="Lihat Detail"><i class="icon icon-eye-open"></i></button> -->
+                    <!-- <a href="" data id="<?php //echo base_url(). 'index.php/Instruktur/updateIns/'. $key->id?>" class="btn btn-success btn-mini view_data" data-toggle="modal" data-target="#modal-edit" title="Lihat Detail"><i class="icon icon-eye-open"></i></a> -->
 
                     <a href="<?php echo base_url(). 'index.php/Instruktur/delete/'. $key->id; ?>" onclick="return confirm('Are you sure to delete this data?')" class="btn btn-danger btn-mini" title="Hapus Data"><i class="icon icon-trash"></i></a>
                   </td>
@@ -108,6 +110,28 @@
         </div>
       </div>
     </div>
+
+    <div id="modal-edit" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data</h4>
+        </div>
+        <div class="modal-body">
+          <div id="phone_result"></div>
+            
+         
+          <br>
+        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+          </div>
+        <!-- </form> -->
+    </div>
+
+</div>    
   </div>
 </div>
 
@@ -137,9 +161,9 @@
                     success: function(data){
                      // Print the fetched data of the selected phone in the section called #phone_result 
                      // within the Bootstrap modal
-                        $('#isiModal').html(data);
+                        $('#phone_result').html(data);
                         // Display the Bootstrap modal
-                        $('#myModal').modal('show');
+                        $('#modal-edit').modal('show');
                     }
                     // error: console.log();
              });

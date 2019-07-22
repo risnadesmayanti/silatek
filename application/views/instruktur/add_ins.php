@@ -29,7 +29,7 @@
           <h5>Informasi Umum</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="<?php echo base_url(). 'index.php/Dashboard/AddingIns'; ?>" method="POST" class="form-horizontal">
+          <form action="<?php echo base_url(). 'index.php/Instruktur/AddingIns'; ?>" method="POST" class="form-horizontal">
             <div class="control-group">
               <label class="control-label">Nama Lengkap :</label>
               <div class="controls">
@@ -45,7 +45,7 @@
             <div class="control-group">
               <label class="control-label">Tanggal Lahir :</label>
               <div class="controls">
-                <input type="text" data-date="01-02-2013" data-date-format="dd-mm-yyyy" class="datepicker span11" name="tgl_lahir" required>
+                <input type="text" data-date="01-02-2013" data-date-format="yyyy-mm-dd" class="datepicker span11" name="tgl_lahir" required>
                 </div>
             </div>
              <div class="control-group">

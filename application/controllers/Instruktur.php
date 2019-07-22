@@ -39,9 +39,14 @@ class Instruktur extends CI_Controller {
 		$spesialisasi = $this->input->post('spesialisasi');
 		$ket = $this->input->post('ket');
  		
+ 		//yyyy-mm-dd -> mysql
+ 		// dd-mm-yyyy -> html
+ 		// date("d-m-Y", strtotime($originalDate))
 		$data = array(
-			'id' => 'INS'.$i,
+			'id' => 'INS'.rand(),
 			'nama' => $nama,
+			'tempat_lahir' => $tempat_lahir,
+			'tgl_lahir' => $tgl_lahir,
 			'asal_instansi' => $asal_instansi,
 			'spesialisasi' => $spesialisasi,
 			'alamat' => $alamat,
@@ -50,7 +55,7 @@ class Instruktur extends CI_Controller {
 			);
 
 		$this->M_instruktur->addInstruktur($data);
-		redirect('Dashboard/instruktur');
+		redirect('/instruktur');
 		$i++;
 	}
 
@@ -77,6 +82,8 @@ class Instruktur extends CI_Controller {
 		$data = array(
 			// 'id' => 'INS'.$i,
 			'nama' => $nama,
+			'tempat_lahir' => $tempat_lahir,
+			'tgl_lahir' => $tgl_lahir,
 			'asal_instansi' => $asal_instansi,
 			'spesialisasi' => $spesialisasi,
 			'alamat' => $alamat,
@@ -88,13 +95,13 @@ class Instruktur extends CI_Controller {
 		$data2 = $this->M_instruktur->update_data($data,$id);
 
 		// print_r($data2);
-		redirect('Dashboard/instruktur');
+		redirect('/instruktur');
 	}
 	public function delete($id)
 	{
 		//$where = array('id' => $id);
 		$this->M_instruktur->deleteInstrukturData($id);
-		redirect('Dashboard/instruktur');
+		redirect('/instruktur');
 		//redirect('crud/index');
 	}
 }

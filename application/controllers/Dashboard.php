@@ -74,6 +74,12 @@ class Dashboard extends CI_Controller {
 	    return "default.jpg";
 	}
 
+	public function AddingIns()
+	{
+		$validation= $this->form_validation;
+		$validation->set_rules()
+	}
+
 }
 
 /* End of file Dashboard */
