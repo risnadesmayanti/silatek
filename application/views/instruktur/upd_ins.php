@@ -19,6 +19,9 @@
   document.getElementById("mySelect").disabled=false;
 }
 </script>
+<style>
+  
+  </style>
 </head>
 <body>
 <div id="content">
@@ -39,7 +42,7 @@
           <form action="<?php echo base_url(). 'index.php/Instruktur/updatingIns/'.$i->id; ?>" method="POST" class="form-horizontal">
             <div class="control-group">
               <div class="controls" style="margin-left: 0">
-                <center><img src="<?php echo base_url('upload/instruktur/'.$i->image) ?>" width="250px" /></center>
+                <<center><img src="<?php echo base_url('upload/instruktur/'.$i->image) ?>" class="img-polaroid" width="250px" placeholder="<?php echo base_url('upload/instruktur/'.$i->image) ?>"/><br><input type="file" name="image" /></center> 
               </div>
               <label class="control-label">Nama Lengkap :</label>
               <div class="controls">
@@ -71,6 +74,13 @@
                 <input type="text" id="mask" class="span8 mask text" name="no_kontak" value="<?php echo $i->no_kontak; ?>"  readonly="true" ondblclick="this.readOnly='';">
               </div>
             </div>
+             <div class="control-group">
+              <label class="control-label">File upload input : </label>
+              <div class="controls">
+                 <label><?php echo $i->image; ?></label>
+              </div>
+            </div>
+                
             <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
           <h5>Informasi Keahlian</h5>
         </div>

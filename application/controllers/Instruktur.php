@@ -1,4 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
+ini_set("display_errors",1);
+error_reporting(E_ALL);
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Instruktur extends CI_Controller {
 
@@ -30,23 +34,37 @@ class Instruktur extends CI_Controller {
 	public function AddingIns()
 	{
 		$i=0;
+		$id = 'INS'.rand();
 		$nama = $this->input->post('nama');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
+		$image = $this->input->post('image');
 		$alamat = $this->input->post('alamat');
 		$no_kontak = $this->input->post('no_kontak');
 		$asal_instansi = $this->input->post('asal_instansi');
 		$spesialisasi = $this->input->post('spesialisasi');
 		$ket = $this->input->post('ket');
  		
- 		//yyyy-mm-dd -> mysql
- 		// dd-mm-yyyy -> html
- 		// date("d-m-Y", strtotime($originalDate))
-		$data = array(
-			'id' => 'INS'.rand(),
+ 		 // setting konfigurasi upload
+        $config['upload_path'] = 'upload/instruktur';
+        $config['allowed_types'] = 'gif|jpg|png';
+        //$config['file_name'] = $id; 	 
+        // load library upload
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('image')) {
+            $error = $this->upload->display_errors();
+            // menampilkan pesan error
+            print_r($error);
+            echo base_url().'upload/instuktur';
+        } else {
+            $result = $this->upload->data();
+
+            $data = array(
+			'id' => $id,
 			'nama' => $nama,
 			'tempat_lahir' => $tempat_lahir,
 			'tgl_lahir' => $tgl_lahir,
+			'image' => $this->upload->data('file_name'),
 			'asal_instansi' => $asal_instansi,
 			'spesialisasi' => $spesialisasi,
 			'alamat' => $alamat,
@@ -54,8 +72,17 @@ class Instruktur extends CI_Controller {
 			'deskripsi' => $ket
 			);
 
-		$this->M_instruktur->addInstruktur($data);
-		redirect('/instruktur');
+			$this->M_instruktur->addInstruktur($data);
+			redirect('/instruktur');
+            echo "<pre>";
+            print_r($result);
+
+            echo "</pre>";
+            //echo $data['image'];
+        }
+
+
+
 		$i++;
 	}
 
@@ -104,6 +131,24 @@ class Instruktur extends CI_Controller {
 		redirect('/instruktur');
 		//redirect('crud/index');
 	}
+
+	public function do_upload() {
+        // setting konfigurasi upload
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        // load library upload
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('gambar')) {
+            $error = $this->upload->display_errors();
+            // menampilkan pesan error
+            print_r($error);
+        } else {
+            $result = $this->upload->data();
+            echo "<pre>";
+            print_r($result);
+            echo "</pre>";
+        }
+    }
 }
 
 /* End of file  */

@@ -1,3 +1,7 @@
+<?php ini_set("display_errors",1);
+error_reporting(E_ALL);
+
+ ?>
 <head>
 <title>Matrix Admin</title>
 <meta charset="UTF-8" />
@@ -29,7 +33,7 @@
           <h5>Informasi Umum</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="<?php echo base_url(). 'index.php/Instruktur/AddingIns'; ?>" method="POST" class="form-horizontal">
+          <form action="<?php echo base_url(). 'index.php/Instruktur/AddingIns'; ?>" method="POST" class="form-horizontal" enctype="multipart/form-data">
             <div class="control-group">
               <label class="control-label">Nama Lengkap :</label>
               <div class="controls">
@@ -63,7 +67,7 @@
             <div class="control-group">
               <label class="control-label">File upload input</label>
               <div class="controls">
-                <input type="file" />
+                <input type="file" name="image"/>
               </div>
             </div>
 

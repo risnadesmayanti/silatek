@@ -54,6 +54,10 @@ class Dashboard extends CI_Controller {
 	// 	}
 	// }
 
+public function get_phone_result()
+ {
+ 	$phoneData = $this->input->post('phoneData');
+ }
 	
 	private function uploadImage()
 	{
@@ -77,7 +81,7 @@ class Dashboard extends CI_Controller {
 	public function AddingIns()
 	{
 		$validation= $this->form_validation;
-		$validation->set_rules()
+		$validation->set_rules();
 	}
 
 }
