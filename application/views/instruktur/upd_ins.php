@@ -1,3 +1,7 @@
+<?php ini_set("display_errors",1);
+error_reporting(E_ALL);
+
+ ?>
 <head>
 <title>Matrix Admin</title>
 <meta charset="UTF-8" />
@@ -19,9 +23,74 @@
   document.getElementById("mySelect").disabled=false;
 }
 </script>
-<style>
-  
-  </style>
+  <style type="text/css">
+    .imagebox .alert {
+      transform: translateY(130%);
+      transition-timing-function: ease-in;
+      transition: 0.2s;
+    }
+    .imagebox.alert-is-shown .alert {
+      transition: 0.25s;
+      transition-timing-function: ease-out;
+      
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .imagebox {
+      width: 261px;
+      margin: 0 auto;
+      /*border: 10px solid #666666;*/
+      height: 250px;
+      position: relative;
+      overflow: hidden;
+      /*border-radius: 80px 80px / 25px 25px 25px 25px;*/
+      &::before {
+        content: "";
+        background: #666666;
+        position: absolute;
+        z-index: 20;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+      }
+      &::after {
+        content: "";
+        background: #848484;
+        position: absolute;
+        z-index: 20;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+        height: 25px;
+      }
+    }
+
+    .alert {
+     /* width: 90%;
+      height: 60px;*/
+      left: 3%;
+      bottom: 5%;
+      background: white;
+      /*border-radius: 4px;*/
+      opacity: 0;
+      /*box-shadow: 0 5px 15px rgba(black, 0.2);*/
+      position: absolute;
+      z-index: 10;
+    }
+
+
+    .isi {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font: 12px monospace;
+      color: #999;
+      text-transform: uppercase;
+    }
+</style>
 </head>
 <body>
 <div id="content">
@@ -39,10 +108,19 @@
         </div>
         <div class="widget-content nopadding">
               <?php foreach($instruktur as $i){ ?>
-          <form action="<?php echo base_url(). 'index.php/Instruktur/updatingIns/'.$i->id; ?>" method="POST" class="form-horizontal">
+          <form action="<?php echo base_url(). 'index.php/Instruktur/updatingIns/'.$i->id; ?>" method="POST" class="form-horizontal" enctype="multipart/form-data">
             <div class="control-group">
               <div class="controls" style="margin-left: 0">
-                <<center><img src="<?php echo base_url('upload/instruktur/'.$i->image) ?>" class="img-polaroid" width="250px" placeholder="<?php echo base_url('upload/instruktur/'.$i->image) ?>"/><br><input type="file" name="image" /></center> 
+<!-- IMAGEEE -->
+              <div class="imagebox">
+                <div class="isi">
+                  <img src="<?php echo base_url('upload/instruktur/'.$i->image) ?>" class="img-polaroid" width="250px"/>
+                </div>
+                <div class="alert">
+                  <input type="file" name="userfile">
+                </div>
+              </div>
+                <!-- <center><img src="<?php //echo base_url('upload/instruktur/'.$i->image) ?>" class="img-polaroid" width="250px" placeholder="<?php //echo base_url('upload/instruktur/'.$i->image) ?>"/><br><input type="file" name="image" /></center>  -->
               </div>
               <label class="control-label">Nama Lengkap :</label>
               <div class="controls">
@@ -244,4 +322,22 @@
 </script>
 
 </body>
+<footer>
+  <script>// https://css-tricks.com/snippets/javascript/loop-queryselectorall-matches/
+var forEach = function (array, callback, scope) {
+  for (var i = 0; i < array.length; i++) {
+    callback.call(scope, i, array[i]); // passes back stuff we need
+  }
+};
+
+var imageboxs = document.querySelectorAll(".imagebox");
+
+forEach(imageboxs, function(index, value) {
+  value.addEventListener("dblclick", function() {
+    this.classList.toggle("alert-is-shown");
+  });
+});
+</script>
+  </footer>
+
 </html>

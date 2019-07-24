@@ -33,12 +33,12 @@ class Instruktur extends CI_Controller {
 
 	public function AddingIns()
 	{
+
 		$i=0;
 		$id = 'INS'.rand();
 		$nama = $this->input->post('nama');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
-		$image = $this->input->post('image');
 		$alamat = $this->input->post('alamat');
 		$no_kontak = $this->input->post('no_kontak');
 		$asal_instansi = $this->input->post('asal_instansi');
@@ -46,40 +46,41 @@ class Instruktur extends CI_Controller {
 		$ket = $this->input->post('ket');
  		
  		 // setting konfigurasi upload
-        $config['upload_path'] = 'upload/instruktur';
+        $config['upload_path'] = './upload/instruktur';
         $config['allowed_types'] = 'gif|jpg|png';
         //$config['file_name'] = $id; 	 
         // load library upload
         $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('image')) {
-            $error = $this->upload->display_errors();
-            // menampilkan pesan error
-            print_r($error);
-            echo base_url().'upload/instuktur';
-        } else {
-            $result = $this->upload->data();
+    	$image = $this->input->post('image');
+		if(!$image){
+			$image = "default.jpg";
+		}
+		$this->upload->do_upload('image');
 
-            $data = array(
+            // $result = $this->upload->data();
+            // echo "<pre>";
+            // print_r($result);
+
+            // echo "</pre>";
+         $data = array(
 			'id' => $id,
 			'nama' => $nama,
 			'tempat_lahir' => $tempat_lahir,
 			'tgl_lahir' => $tgl_lahir,
-			'image' => $this->upload->data('file_name'),
+			'image' => $image,
 			'asal_instansi' => $asal_instansi,
 			'spesialisasi' => $spesialisasi,
 			'alamat' => $alamat,
 			'no_kontak' => $no_kontak,
 			'deskripsi' => $ket
 			);
-
-			$this->M_instruktur->addInstruktur($data);
-			redirect('/instruktur');
             echo "<pre>";
-            print_r($result);
+            print_r($data);
 
             echo "</pre>";
-            //echo $data['image'];
-        }
+            
+
+         $this->M_instruktur->addInstruktur($data);
 
 
 
@@ -100,17 +101,58 @@ class Instruktur extends CI_Controller {
 		$nama = $this->input->post('nama');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
+		$image = $this->input->post('image');
 		$alamat = $this->input->post('alamat');
 		$no_kontak = $this->input->post('no_kontak');
 		$asal_instansi = $this->input->post('asal_instansi');
 		$spesialisasi = $this->input->post('spesialisasi');
 		$ket = $this->input->post('ket');
 
+		// $data = array(
+		// 	// 'id' => 'INS'.$i,
+		// 	'nama' => $nama,
+		// 	'tempat_lahir' => $tempat_lahir,
+		// 	'tgl_lahir' => $tgl_lahir,
+		// 	'asal_instansi' => $asal_instansi,
+		// 	'spesialisasi' => $spesialisasi,
+		// 	'alamat' => $alamat,
+		// 	'no_kontak' => $no_kontak,
+		// 	'deskripsi' => $ket
+		// 	);
+
+		// $where = array('id' => $id);
+		$config['upload_path'] = './upload/instruktur';
+        $config['allowed_types'] = 'gif|jpg|png';
+        //$config['file_name'] = $id; 	 
+        // load library upload
+        $this->load->library('upload', $config);
+        // $this->upload->do_upload();
+        if (!$this->upload->do_upload('userfile')) {
+            $error = $this->upload->display_errors();
+            // menampilkan pesan error
+            print_r($error);
+            echo base_url().'upload/instruktur';
+            echo $image;
+        } else {
+            $result = $this->upload->data();
+
+            $image2 = $this->upload->data('file_name');
+
+            echo "<pre>";
+            print_r($result);
+
+            echo "</pre>";
+            //echo $data['image'];
+        }
+
+		// print_r($data2);
+		// redirect('/instruktur');
 		$data = array(
-			// 'id' => 'INS'.$i,
+			// 'id' => $id,
 			'nama' => $nama,
 			'tempat_lahir' => $tempat_lahir,
 			'tgl_lahir' => $tgl_lahir,
+			'image' => $image2,
 			'asal_instansi' => $asal_instansi,
 			'spesialisasi' => $spesialisasi,
 			'alamat' => $alamat,
@@ -118,11 +160,8 @@ class Instruktur extends CI_Controller {
 			'deskripsi' => $ket
 			);
 
-		// $where = array('id' => $id);
-		$data2 = $this->M_instruktur->update_data($data,$id);
-
-		// print_r($data2);
-		redirect('/instruktur');
+			$this->M_instruktur->update_data($data,$id);
+			redirect('/instruktur');
 	}
 	public function delete($id)
 	{
