@@ -105,7 +105,7 @@ error_reporting(E_ALL);
               <button type="submit" class="btn btn-success pull-right">Save</button>
            
           </form>
-          <a href="<?php echo base_url('index.php/Dashboard/instruktur'); ?>" class="btn btn-info ">Back</a>
+          <a href="<?php echo base_url('index.php/instruktur'); ?>" class="btn btn-info ">Back</a>
             </div>
             
         </div>

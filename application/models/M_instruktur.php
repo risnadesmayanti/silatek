@@ -62,7 +62,7 @@ class M_instruktur extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('tb_instruktur');
 	    $this->db->where('id',$id);
-	    $res2 = $this->db->get('instruktur');
+	    $res2 = $this->db->get();
   		return $res2;
 	}		
 

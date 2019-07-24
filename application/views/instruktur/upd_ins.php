@@ -17,12 +17,6 @@ error_reporting(E_ALL);
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-wysihtml5.css" />
 <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-
-<script type="text/javascript">
-  function enable() {
-  document.getElementById("mySelect").disabled=false;
-}
-</script>
   <style type="text/css">
     .imagebox .alert {
       transform: translateY(130%);
@@ -201,99 +195,6 @@ error_reporting(E_ALL);
         </div>
       </div>
     <!-- </div> -->
-
-  <div class="modal fade" id="modal-edit" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-         <div class="modal-header">
-              <h4 class="modal-title" style="text-align: center;" id="exampleModalLabel">Update Instruktur</h4>
-          </div>
-       <!-- BODY -->
-       <div class="modal-body">
-         <div class="widget-box">
-    <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-     <h5>Informasi Umum</h5>
-    </div>
-        <div class="widget-content nopadding">
-             <?php foreach($instruktur as $i){ ?>
-            <form action="<?php echo base_url(). 'index.php/Instruktur/updatingIns/'.$i->id; ?>" method="POST" class="form-horizontal">
-                <div class="control-group">
-                   <input type="hidden" name="id" value= "<?php echo $i->id ?>">
-                  <label class="control-label">Nama Lengkap :</label>
-                  <div class="controls">
-                    <input type="text" class="span3" placeholder="Masukan Nama Lengkap" name="nama" value="<?php echo $i->nama; ?>"/>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">Tempat Lahir :</label>
-                  <div class="controls">
-                    <input type="text" class="span3" placeholder="Contoh : Bandung" name="tempat_lahir" value="<?php echo $i->tempat_lahir; ?>" />
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">Tanggal Lahir :</label>
-                  <div class="controls">
-                    <input type="text" data-date-format="yyyy-mm-dd" class="datepicker" name="tgl_lahir" value="<?php echo $i->tgl_lahir; ?>">
-                    </div>
-                </div>
-                 <div class="control-group">
-                  <label class="control-label">Alamat Lengkap :</label>
-                  <div class="controls">
-                   <textarea class="span3" name="alamat"><?php echo $i->alamat; ?></textarea>
-                </div>
-                </div>
-                <div class="control-group">
-                  <label for="normal" class="control-label">No. Kontak :</label>
-                  <div class="controls">
-                    <input type="text" id="mask" class="span3 mask text" name="no_kontak" value="<?php echo $i->no_kontak; ?>">
-                  </div>
-                </div>
-    <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-      <h5>Informasi Keahlian</h5>
-    </div>
-        <div class="control-group">
-          <label class="control-label">Asal Instansi :</label>
-          <div class="controls">
-            <input type="text" class="span3" placeholder="Masukan Asal Instansi" name="asal_instansi" value="<?php echo $i->asal_instansi; ?>"/>
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Spesialisasi :</label>
-          <div class="controls">
-              <select placeholder="Pilih Spesialisasi" name="spesialisasi">
-                  <option>Teknik Industri</option>
-                  <option>Teknik Mesin</option>
-                  <option>Teknik Kelistrikan</option>
-                  <option>Teknik Informatika</option>
-                  <option>Teknik Tekstil</option>
-           
-                </select>
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Keterangan :</label>
-          <div class="controls">
-           <textarea class="span3" name="ket" placeholder="<?php echo $i->deskripsi; ?>"><?php echo $i->deskripsi; ?></textarea>
-            <span class="help-block">Deskripsi tambahan</span> </div>
-        </div>
-           <?php } ?>
-
-    </div>
-  
-</div>
-
-        </div>
-          
-        <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-          </form>
-        </div>
-</div>
-      
  
 
   </div>
@@ -337,6 +238,11 @@ forEach(imageboxs, function(index, value) {
     this.classList.toggle("alert-is-shown");
   });
 });
+</script>
+<script type="text/javascript">
+  function enable() {
+  document.getElementById("mySelect").disabled=false;
+}
 </script>
   </footer>
 

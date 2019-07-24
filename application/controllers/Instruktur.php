@@ -20,7 +20,7 @@ class Instruktur extends CI_Controller {
 	}
 
 	public function detailIns($id){
-		$data = $this->M_instruktur->getSelected(array('EmployeeId' => $id));
+		$data = $this->M_instruktur->getSelected($id);
         echo json_encode($data);
 	}
 
@@ -39,6 +39,7 @@ class Instruktur extends CI_Controller {
 		$nama = $this->input->post('nama');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
+		$image = $_FILES['image']['name'];
 		$alamat = $this->input->post('alamat');
 		$no_kontak = $this->input->post('no_kontak');
 		$asal_instansi = $this->input->post('asal_instansi');
@@ -51,10 +52,9 @@ class Instruktur extends CI_Controller {
         //$config['file_name'] = $id; 	 
         // load library upload
         $this->load->library('upload', $config);
-    	$image = $this->input->post('image');
-		if(!$image){
-			$image = "default.jpg";
-		}
+		// if(!$image){
+		// 	$image = "default.jpg";
+		// }
 		$this->upload->do_upload('image');
 
             // $result = $this->upload->data();
@@ -74,10 +74,11 @@ class Instruktur extends CI_Controller {
 			'no_kontak' => $no_kontak,
 			'deskripsi' => $ket
 			);
-            echo "<pre>";
-            print_r($data);
+            // echo "<pre>";
+            // print_r($data);
 
-            echo "</pre>";
+            // echo "</pre>";
+             // echo "lalala".$this->input->post('images');
             
 
          $this->M_instruktur->addInstruktur($data);
@@ -101,68 +102,82 @@ class Instruktur extends CI_Controller {
 		$nama = $this->input->post('nama');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
-		$image = $this->input->post('image');
+		$image = $_FILES['userfile']['name'];
 		$alamat = $this->input->post('alamat');
 		$no_kontak = $this->input->post('no_kontak');
 		$asal_instansi = $this->input->post('asal_instansi');
 		$spesialisasi = $this->input->post('spesialisasi');
 		$ket = $this->input->post('ket');
 
-		// $data = array(
-		// 	// 'id' => 'INS'.$i,
-		// 	'nama' => $nama,
-		// 	'tempat_lahir' => $tempat_lahir,
-		// 	'tgl_lahir' => $tgl_lahir,
-		// 	'asal_instansi' => $asal_instansi,
-		// 	'spesialisasi' => $spesialisasi,
-		// 	'alamat' => $alamat,
-		// 	'no_kontak' => $no_kontak,
-		// 	'deskripsi' => $ket
-		// 	);
-
 		// $where = array('id' => $id);
 		$config['upload_path'] = './upload/instruktur';
         $config['allowed_types'] = 'gif|jpg|png';
-        //$config['file_name'] = $id; 	 
+        $config['overwrite'] = true;
+        $config['file_name'] = $id; 
+        $config['max_size']  = 1024; // 1MB
+
         // load library upload
         $this->load->library('upload', $config);
-        // $this->upload->do_upload();
-        if (!$this->upload->do_upload('userfile')) {
-            $error = $this->upload->display_errors();
-            // menampilkan pesan error
-            print_r($error);
-            echo base_url().'upload/instruktur';
-            echo $image;
-        } else {
-            $result = $this->upload->data();
+        $this->upload->do_upload('userfile');
 
-            $image2 = $this->upload->data('file_name');
+        // if (!$this->upload->do_upload('userfile')) {
+        //     $error = $this->upload->display_errors();
+        //     // menampilkan pesan error
+        //     print_r($error);
+        //     echo base_url().'upload/instruktur';
+        //     echo $image;
+        // } else {
+            $databerkas= 'default.jpg';
+            $result = $this->upload->data();
+            if(!$image){
+            	$data2 = $this->M_instruktur->getSelected($id)->result_array();
+	            foreach ($data2 as $key => $value) {
+	            	$databerkas = $value['image'];
+	            }
+	            $data = array(
+					// 'id' => $id,
+					'nama' => $nama,
+					'tempat_lahir' => $tempat_lahir,
+					'tgl_lahir' => $tgl_lahir,
+					'image' => $databerkas,
+					'asal_instansi' => $asal_instansi,
+					'spesialisasi' => $spesialisasi,
+					'alamat' => $alamat,
+					'no_kontak' => $no_kontak,
+					'deskripsi' => $ket
+					);
+            }else{
+            	$image2 = $this->upload->data('file_name');
+				$data = array(
+					// 'id' => $id,
+					'nama' => $nama,
+					'tempat_lahir' => $tempat_lahir,
+					'tgl_lahir' => $tgl_lahir,
+					'image' => $image2,
+					'asal_instansi' => $asal_instansi,
+					'spesialisasi' => $spesialisasi,
+					'alamat' => $alamat,
+					'no_kontak' => $no_kontak,
+					'deskripsi' => $ket
+					);
+            }
+        // }
+
 
             echo "<pre>";
             print_r($result);
-
             echo "</pre>";
-            //echo $data['image'];
-        }
 
-		// print_r($data2);
-		// redirect('/instruktur');
-		$data = array(
-			// 'id' => $id,
-			'nama' => $nama,
-			'tempat_lahir' => $tempat_lahir,
-			'tgl_lahir' => $tgl_lahir,
-			'image' => $image2,
-			'asal_instansi' => $asal_instansi,
-			'spesialisasi' => $spesialisasi,
-			'alamat' => $alamat,
-			'no_kontak' => $no_kontak,
-			'deskripsi' => $ket
-			);
+            echo "<pre>";
+            print_r($data);
+            echo "</pre>";
+		
 
 			$this->M_instruktur->update_data($data,$id);
 			redirect('/instruktur');
 	}
+
+
 	public function delete($id)
 	{
 		//$where = array('id' => $id);
@@ -171,22 +186,21 @@ class Instruktur extends CI_Controller {
 		//redirect('crud/index');
 	}
 
-	public function do_upload() {
+	public function _uploadImage() {
         // setting konfigurasi upload
-        $config['upload_path'] = './uploads/';
+        $config['upload_path'] = './upload/instruktur';
         $config['allowed_types'] = 'gif|jpg|png';
+        $config['overwrite'] = true;
+        $config['file_name'] = $id; 
+        $config['max_size']  = 1024; // 1MB
+
         // load library upload
         $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('gambar')) {
-            $error = $this->upload->display_errors();
-            // menampilkan pesan error
-            print_r($error);
-        } else {
-            $result = $this->upload->data();
-            echo "<pre>";
-            print_r($result);
-            echo "</pre>";
-        }
+        if ($this->upload->do_upload('image')) {
+        	return $this->upload->data("file_name");
+    	}
+
+    	 return "default.jpg";
     }
 }
 
