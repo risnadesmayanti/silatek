@@ -108,6 +108,7 @@ error_reporting(E_ALL);
 <!-- IMAGEEE -->
               <div class="imagebox">
                 <div class="isi">
+                  <input type="hidden" name="old_image" value="<?php echo base_url('upload/instruktur/'.$i->image) ?>">
                   <img src="<?php echo base_url('upload/instruktur/'.$i->image) ?>" class="img-polaroid" width="250px"/>
                 </div>
                 <div class="alert">

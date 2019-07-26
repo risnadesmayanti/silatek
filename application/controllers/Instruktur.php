@@ -47,8 +47,11 @@ class Instruktur extends CI_Controller {
 		$ket = $this->input->post('ket');
  		
  		 // setting konfigurasi upload
-        $config['upload_path'] = './upload/instruktur';
+       	$config['upload_path'] = './upload/instruktur';
         $config['allowed_types'] = 'gif|jpg|png';
+        $config['overwrite'] = true;
+        $config['file_name'] = $id; 
+        $config['max_size']  = 1024; // 1MB
         //$config['file_name'] = $id; 	 
         // load library upload
         $this->load->library('upload', $config);
@@ -56,12 +59,12 @@ class Instruktur extends CI_Controller {
 		// 	$image = "default.jpg";
 		// }
 		$this->upload->do_upload('image');
-
-            // $result = $this->upload->data();
-            // echo "<pre>";
-            // print_r($result);
-
-            // echo "</pre>";
+		$result = $this->upload->data();
+             if(!$image){
+             	$image= 'default.jpg';
+             }else{
+             	$image = $this->upload->data('file_name');
+             }
          $data = array(
 			'id' => $id,
 			'nama' => $nama,
@@ -74,18 +77,21 @@ class Instruktur extends CI_Controller {
 			'no_kontak' => $no_kontak,
 			'deskripsi' => $ket
 			);
-            // echo "<pre>";
-            // print_r($data);
+            echo "<pre>";
+            print_r($data);
 
-            // echo "</pre>";
+            echo "</pre>";
+
+            echo "<pre>";
+            print_r($result);
+
+            echo "</pre>";
              // echo "lalala".$this->input->post('images');
             
 
          $this->M_instruktur->addInstruktur($data);
+			redirect('/instruktur');
 
-
-
-		$i++;
 	}
 
 	public function updateIns($id)
@@ -97,12 +103,14 @@ class Instruktur extends CI_Controller {
 		// print_r($data);
 	}
 
+
 	public function updatingIns($id)
 	{
 		$nama = $this->input->post('nama');
 		$tempat_lahir = $this->input->post('tempat_lahir');
 		$tgl_lahir = $this->input->post('tgl_lahir');
 		$image = $_FILES['userfile']['name'];
+		$old_image = $this->input->post('old_image');
 		$alamat = $this->input->post('alamat');
 		$no_kontak = $this->input->post('no_kontak');
 		$asal_instansi = $this->input->post('asal_instansi');
@@ -127,13 +135,14 @@ class Instruktur extends CI_Controller {
         //     echo base_url().'upload/instruktur';
         //     echo $image;
         // } else {
-            $databerkas= 'default.jpg';
+            
             $result = $this->upload->data();
             if(!$image){
             	$data2 = $this->M_instruktur->getSelected($id)->result_array();
 	            foreach ($data2 as $key => $value) {
 	            	$databerkas = $value['image'];
 	            }
+
 	            $data = array(
 					// 'id' => $id,
 					'nama' => $nama,
