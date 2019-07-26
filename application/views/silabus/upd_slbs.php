@@ -1,3 +1,7 @@
+<?php ini_set("display_errors",1);
+error_reporting(E_ALL);
+
+ ?>
 <head>
 <title>Matrix Admin</title>
 <meta charset="UTF-8" />
@@ -13,28 +17,98 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-wysihtml5.css" />
 <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+    .imagebox .alert {
+      transform: translateY(130%);
+      transition-timing-function: ease-in;
+      transition: 0.2s;
+    }
+    .imagebox.alert-is-shown .alert {
+      transition: 0.25s;
+      transition-timing-function: ease-out;
+      
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .imagebox {
+      width: 261px;
+      margin: 0 auto;
+      /*border: 10px solid #666666;*/
+      height: 250px;
+      position: relative;
+      overflow: hidden;
+      /*border-radius: 80px 80px / 25px 25px 25px 25px;*/
+      &::before {
+        content: "";
+        background: #666666;
+        position: absolute;
+        z-index: 20;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+      }
+      &::after {
+        content: "";
+        background: #848484;
+        position: absolute;
+        z-index: 20;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+        height: 25px;
+      }
+    }
+
+    .alert {
+     /* width: 90%;
+      height: 60px;*/
+      left: 3%;
+      bottom: 5%;
+      background: white;
+      /*border-radius: 4px;*/
+      opacity: 0;
+      /*box-shadow: 0 5px 15px rgba(black, 0.2);*/
+      position: absolute;
+      z-index: 10;
+    }
+
+
+    .isi {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font: 12px monospace;
+      color: #999;
+      text-transform: uppercase;
+    }
+</style>
 </head>
 <body>
 <div id="content">
 <div id="content-header">
-  <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="tip-bottom">Daftar Instruktur Pelatihan</a> <a href="#" class="current">Tambahkan Data Instruktur</a> </div>
-  <h1>Formulir Pendaftaran Instruktur</h1>
+  <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="tip-bottom">Daftar Instruktur Pelatihan</a> <a href="#" class="current">Lihat Data Instruktur</a> </div>
+  <h1>Detail Data Instruktur</h1>
 </div>
 <div class="container-fluid">
   <hr>
   <div class="row-fluid">
   <!--   <div class="span6"> -->
       <div class="widget-box">
+        <dv class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
           <h5>Informasi Umum</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="<?php echo base_url(). 'index.php/Silabus/AddingSlbs'; ?>" method="POST" class="form-horizontal" enctype="multipart/form-data">
+           <?php foreach($slbs as $key){ ?>
+          <form action="<?php echo base_url(). 'index.php/Silabus/UpdatingSlbs/'.$key->id; ?>" method="POST" class="form-horizontal" enctype="multipart/form-data">
             <div class="control-group">
               <label class="control-label">Judul Silabus : </label>
               <div class="controls">
                 <!-- <input type="hidden" class="span11" name="id_silabus" value="<?php //$id= 'SLBS'.rand(); ?>" /> -->
-                <input type="text" class="span11" placeholder="Masukan Judul Silabus" name="judul_silabus" required />
+                <input type="text" class="span11" placeholder="Masukan Judul Silabus" name="judul_silabus"  readonly="true" ondblclick="this.readOnly='';" value="<?php echo $key->judul; ?>"/>
               </div>
             </div>
              <div class="control-group">
@@ -46,21 +120,21 @@
                   <option>Teknik Kelistrikan</option>
                   <option>Teknik Informatika</option>
                   <option>Teknik Tekstil</option>
-           
+                <option value="<?php echo $i->spesialisasi; ?>" selected><?php echo $key->kategori; ?></option>
                 </select>
               </div>
             </div>
            <div class="control-group">
               <label class="control-label">Ringkasan :</label>
               <div class="controls">
-                <textarea class="span11" name="ringkasan" required=""></textarea>
+                <textarea class="span11" name="ringkasan"  readonly="true" ondblclick="this.readOnly='';" value="<?php echo $key->ringkasan; ?>"></textarea>
                 <span class="help-block">Deskripsi tambahan</span>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Tambahkan File : </label>
               <div class="controls">
-                <input type="file" name="userfile" required />
+                <input type="file" name="userfile"  readonly="true" ondblclick="this.readOnly='';" />
                 </div>
             </div>
              
@@ -70,12 +144,10 @@
           </form>
           <a href="<?php echo base_url('index.php/silabus'); ?>" class="btn btn-info ">Back</a>
             </div>
-            
+            <?php } ?>
         </div>
       </div>
     <!-- </div> -->
-
-      
  
 
   </div>
@@ -102,5 +174,29 @@
 <script>
   $('.textarea_editor').wysihtml5();
 </script>
+
 </body>
+<footer>
+  <script>// https://css-tricks.com/snippets/javascript/loop-queryselectorall-matches/
+var forEach = function (array, callback, scope) {
+  for (var i = 0; i < array.length; i++) {
+    callback.call(scope, i, array[i]); // passes back stuff we need
+  }
+};
+
+var imageboxs = document.querySelectorAll(".imagebox");
+
+forEach(imageboxs, function(index, value) {
+  value.addEventListener("dblclick", function() {
+    this.classList.toggle("alert-is-shown");
+  });
+});
+</script>
+<script type="text/javascript">
+  function enable() {
+  document.getElementById("mySelect").disabled=false;
+}
+</script>
+  </footer>
+
 </html>

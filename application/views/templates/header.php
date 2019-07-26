@@ -65,7 +65,7 @@
   <ul>
     <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li> <a href="<?php echo base_url('index.php/Instruktur'); ?>"><i class="icon icon-group"></i> <span>Daftar Instruktur Pelatihan</span></a> </li>
-    <li> <a href="<?php echo base_url('index.php/Dashboard/jadwal'); ?>"><i class="icon icon-calendar"></i> <span>Jadwal Instruktur</span></a> </li>
+    <li> <a href="<?php echo base_url('index.php/Jadwal'); ?>"><i class="icon icon-calendar"></i> <span>Jadwal Instruktur</span></a> </li>
     <li><a href="<?php echo base_url('index.php/Silabus'); ?>"><i class="icon icon-file"></i> <span>Daftar Silabus</span></a></li>
     <li><a href="<?php echo base_url('index.php/Dashboard/AllPelatihan'); ?>"><i class="icon icon-tasks"></i> <span>Semua Pelatihan</span></a></li>
     

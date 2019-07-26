@@ -46,21 +46,37 @@
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
             
-            <a class="label btn-inverse" href=""><i class="icon-plus"></i> Tambah Data Instruktur</a> </div>
+            <a class="label btn-inverse" href="<?php echo base_url('index.php/Silabus/AddSlbs'); ?>"><i class="icon-plus"></i> Tambah Data Silabus</a> </div>
           <div class="widget-content ">
             <table class="table table-bordered table-striped with-check" id="dataTable">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th width="30%">Nama Instruktur Pelatihan</th>
+                  <th width="30%">Judul </th>
+                  <th>Kategori Silabus</th>
                   <th>Deskripsi Silabus</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
-               
+               <tr>
+                 <?php $i=1; foreach ($slbs as $key ) { ?>
+                  <td style="text-align: center;"><?php echo $i; ?></td>
+                  <td><?php echo $key->judul; ?></td>
+                  <td><?php echo $key->kategori; ?></td>
+                  <td><?php echo $key->ringkasan; ?></td>
+                  <td style="text-align: center;">
+                    <!-- <a href="#" id="<?php //echo $key->id; ?>" class="btn btn-primary btn-mini view_data" title="Lihat Detail" data-toggle="modal" data-target="#myModal"><i class="icon icon-eye-open"></i></a> --> 
+                    
+                    <a href="<?php echo base_url(). 'index.php/Silabus/updateSlbs/'. $key->id?>" class="btn btn-success btn-mini" title="Lihat Detail"><i class="icon icon-eye-open"></i></a> 
+                    <!-- <button type="button" class="btn btn-success btn-mini" data-toggle="modal" data-target="#modal-tambah" title="Lihat Detail"><i class="icon icon-eye-open"></i></button> -->
+                    <!-- <a href="" data id="<?php //echo base_url(). 'index.php/Instruktur/updateIns/'. $key->id?>" class="btn btn-success btn-mini view_data" data-toggle="modal" data-target="#modal-edit" title="Lihat Detail"><i class="icon icon-eye-open"></i></a> -->
+
+                    <a href="<?php echo base_url(). 'index.php/' ?>" class="btn btn-danger btn-mini" title="Hapus Data"><i class="icon icon-trash"></i></a>
+                  </td>
+                </tr>
      
-               
+               <?php $i++;} ?>
               </tbody>
             </table>
         </div>

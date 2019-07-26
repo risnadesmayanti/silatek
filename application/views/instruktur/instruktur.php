@@ -1,29 +1,5 @@
 <div id="content">
 
-  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title" style="text-align: center;">Detail Informasi Instruktur</h4>
-          
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body" id="isiModal">
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  
   <!-- MODAL DELETE START -->
    <div class="modal fade" id="myModalDelete">
     <div class="modal-dialog modal-sm">
@@ -111,29 +87,6 @@
         </div>
       </div>
     </div>
-
-    <div id="modal-edit" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Tambah Data</h4>
-        </div>
-        <div class="modal-body">
-          <div id="phone_result"></div>
-            
-         
-          <br>
-        </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
-          </div>
-        <!-- </form> -->
-    </div>
-
-</div>    
-  </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 

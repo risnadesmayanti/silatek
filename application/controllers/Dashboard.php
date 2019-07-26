@@ -11,13 +11,6 @@ class Dashboard extends CI_Controller {
 
 	}
 
-	public function jadwal()
-	{
-		// $this->load->view('welcome_message');
-		$this->load->view('templates/header');
-		$this->load->view('jadwal');
-		$this->load->view('templates/footer');
-	}	
 
 	
 

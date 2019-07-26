@@ -17,6 +17,8 @@ class Instruktur extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('instruktur/instruktur', $data);
 		$this->load->view('templates/footer');
+
+		
 	}
 
 	public function detailIns($id){
@@ -90,7 +92,7 @@ class Instruktur extends CI_Controller {
             
 
          $this->M_instruktur->addInstruktur($data);
-			redirect('/instruktur');
+		redirect('/instruktur');
 
 	}
 
