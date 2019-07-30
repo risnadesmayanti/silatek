@@ -16,6 +16,8 @@ error_reporting(E_ALL);
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/matrix-media.css" />
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-wysihtml5.css" />
 <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1394306-6"></script>
+<script src="<?php echo base_url(); ?>assets/js/analytics.js"></script><!-- /site analytics -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
   <style type="text/css">
     .imagebox .alert {
@@ -84,6 +86,14 @@ error_reporting(E_ALL);
       color: #999;
       text-transform: uppercase;
     }
+
+    .pdfobject-container {
+      width: 100%;
+      max-width: 600px;
+      height: 600px;
+      margin: 2em 0;
+    }
+    .pdfobject { border: solid 1px #666; }
 </style>
 </head>
 <body>
@@ -131,17 +141,26 @@ error_reporting(E_ALL);
                 <span class="help-block">Deskripsi tambahan</span>
               </div>
             </div>
+
             <div class="control-group">
-              <label class="control-label">Tambahkan File : </label>
+              <div class="controls">
+                <div id="pdf1"></div>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Ubah File : </label>
               <div class="controls">
                 <input type="file" name="userfile"  readonly="true" ondblclick="this.readOnly='';" />
                 </div>
             </div>
              
         <div class="form-actions">
+
+
               <button type="submit" class="btn btn-success pull-right">Save</button>
            
           </form>
+          
           <a href="<?php echo base_url('index.php/silabus'); ?>" class="btn btn-info ">Back</a>
             </div>
             <?php } ?>
@@ -176,7 +195,24 @@ error_reporting(E_ALL);
 </script>
 
 </body>
-<footer>
+<footer> 
+  <?php foreach($slbs as $key){ ?>
+  <script src="<?php echo base_url(); ?>assets/js/pdfobject.min.js"></script>
+  <script>
+
+  var options = {
+    page: 2,
+    pdfOpenParams: {
+      navpanes: 1,
+      view: "FitH",
+      pagemode: "thumbs"
+    }
+  };
+
+  PDFObject.embed("<?php echo base_url(); ?>upload/silabus/<?php echo $key->dokumen_file; ?>", "#pdf1");
+  // PDFObject.embed("../pdf/sample-3pp.pdf", "#pdf2");
+  </script>
+  <?php } ?>
   <script>// https://css-tricks.com/snippets/javascript/loop-queryselectorall-matches/
 var forEach = function (array, callback, scope) {
   for (var i = 0; i < array.length; i++) {

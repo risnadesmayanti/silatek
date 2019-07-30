@@ -48,7 +48,7 @@ class Silabus extends CI_Controller {
        	$config['upload_path'] = './upload/silabus';
         $config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|csv|ods|odt|odp|pdf|rtf|sxc|sxi|txt';
         $config['overwrite'] = true;
-        $config['file_name'] = $id; 
+        // $config['file_name'] = $id; 
         $config['max_size']  = 10024; // 1MB
         //$config['file_name'] = $id; 	 
         // load library upload
@@ -57,17 +57,17 @@ class Silabus extends CI_Controller {
 
 		$result = $this->upload->data();
 		/* TRACE DATA */
-  //       if (!$this->upload->do_upload('userfile')) {
-  //           $error = $this->upload->display_errors();
-  //           // menampilkan pesan error
-  //           print_r($error);
-  //           echo base_url().'upload/instruktur';
-  //           // echo $image;
-  //       } else {
-		// 	echo "<pre>";
-		// 	echo print_r($result);
-		// 	echo "</pre>";
-		// }
+        if (!$this->upload->do_upload('userfile')) {
+            $error = $this->upload->display_errors();
+            // menampilkan pesan error
+            print_r($error);
+            echo base_url().'upload/instruktur';
+            // echo $image;
+        } else {
+			echo "<pre>";
+			echo print_r($result);
+			echo "</pre>";
+		}
 
 		$data = array(
 			'id' => $id,
@@ -76,6 +76,10 @@ class Silabus extends CI_Controller {
 			'ringkasan' => $ringkasan,
 			'dokumen_file' => $dokumen_file
 			);
+
+		echo "<pre>";
+			echo print_r($data);
+			echo "</pre>";
 		$this->M_silabus->addSlbs($data);
 		redirect('/silabus');
 	}
@@ -85,6 +89,8 @@ class Silabus extends CI_Controller {
 	{
 		$where = array('id' => $id);
 		$data['slbs'] = $this->M_silabus->edit_data($where)->result();
+		
+		// echo base_url()."upload/silabus/4e-MANAJEMEN KONFLIK(revJan'03) (1).doc";
 		$this->load->view('templates/header');
 		$this->load->view('silabus/upd_slbs',$data);
 		// print_r($data);
